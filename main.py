@@ -1,4 +1,5 @@
 import read_file
+import format_table
 import pandas as pd
 import matplotlib.pyplot as plt
 from openpyxl import load_workbook
@@ -10,11 +11,14 @@ files = glob.glob("data/*.csv")
 
 # Read csv file
 metadata, table = read_file.parse_bank_csv("data/Export20250729150608.csv")
-
-# Write to excel file   
+  
 sheet = metadata["bank_info"].split(';')[2]
-print(table)
-#table.to_excel("20250729.xlsx", sheet_name=sheet, index=False)
+
+# Format
+final_table = format_table.format(metadata, table)
+
+# Output to excel
+final_table.to_excel("formatted_statement.xlsx", index=False)
 print("CSV file successfully written to xl")
 
 
