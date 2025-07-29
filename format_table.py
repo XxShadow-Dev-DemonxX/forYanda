@@ -2,7 +2,7 @@ import pandas as pd
 
 def format(metadata, table):
     # Format the date
-    table['Date'] = pd.to_datetime(table['Date']).dt.strftime('%-d %b %Y')
+    table['Date'] = pd.to_datetime(table['Date']).dt.strftime('%d %b %Y')
 
     # Combine Payee name and Memo, to form transaction description as formatted in bank statement
     table['Transaction Description'] = table['Payee'] + "\n" + table['Memo']
