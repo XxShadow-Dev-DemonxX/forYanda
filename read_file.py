@@ -1,4 +1,5 @@
 import pandas as pd
+
 def parse_bank_csv(filename):
     # Read the whole file as text
     with open(filename, 'r', encoding='utf-8') as f:
@@ -7,7 +8,7 @@ def parse_bank_csv(filename):
     # First few lines of CSV file are metadata - extract this info
     metadata = {}
     for line in lines:
-        if line.startswith("Date,Unique Id"):  # this means the table starts here
+        if line.startswith("Date,Unique Id"):  # This means the table starts here
             break
         # Parse known metadata patterns
         if line.startswith("Created date / time"):
