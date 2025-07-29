@@ -1,5 +1,6 @@
 import read_file
 import format_table
+import format_excel
 import pandas as pd
 import matplotlib.pyplot as plt
 from openpyxl import load_workbook
@@ -19,6 +20,7 @@ final_table = format_table.format(metadata, table)
 
 # Output to excel
 final_table.to_excel("formatted_statement.xlsx", index=False)
+format_excel.format("formatted_statement.xlsx")
 print("CSV file successfully written to xl")
 
 
