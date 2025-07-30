@@ -51,10 +51,10 @@ def format(file_name):
 
     # Apply to every 2nd row
     for row in range(2, ws.max_row + 1):
-        if row % 2 == 0:
             for cell in ws[row]:
-                cell.fill = fill_gray
-        cell.border = thin_border
+                if row % 2 == 0:
+                    cell.fill = fill_gray
+                cell.border = thin_border
 
     # Save changes
     wb.save(file_name)
