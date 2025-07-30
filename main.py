@@ -3,6 +3,7 @@ import format_table
 import format_excel
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import datetime
 from openpyxl import load_workbook
 from openpyxl.drawing.image import Image
 import glob
@@ -11,7 +12,7 @@ import glob
 files = glob.glob("data/*.csv")
 
 # Read csv file
-metadata, table = read_file.parse_bank_csv("data/Export20250729150608.csv")
+metadata, table = read_file.parse_bank_csv(files[0])
   
 sheet = metadata["bank_info"].split(';')[2]
 
@@ -19,8 +20,13 @@ sheet = metadata["bank_info"].split(';')[2]
 final_table = format_table.format(metadata, table)
 
 # Output to excel
-final_table.to_excel("formatted_statement.xlsx", index=False)
-format_excel.format("formatted_statement.xlsx")
+from_dt = datetime.strptime(metadata["from_date"], "%Y%m%d")
+to_dt = datetime.strptime(metadata["to_date"], "%Y%m%d")
+from_date = from_dt.strftime('%d %b %Y')
+to_date = to_dt.strftime('%d %b %Y')
+excel_filename = from_date + " to " + to_date + " IIC Financial Statement.xlsx"
+final_table.to_excel(excel_filename, index=False)
+format_excel.format(excel_filename)
 print("CSV file successfully written to xl")
 
 
