@@ -5,7 +5,11 @@ def format(metadata, table):
     table['Date'] = pd.to_datetime(table['Date']).dt.strftime('%d %b %Y')
 
     # Combine Payee name and Memo, to form transaction description as formatted in bank statement
-    table['Transaction Description'] = table['Payee'] + "\n" + table['Memo']
+    table['Transaction Description'] = (
+    table['Payee'].fillna('') + 
+    table['Memo'].fillna('').apply(lambda m: f"\n{m}" if m else '')
+    )
+
 
     # Differentiate between debit vs credit
     table['Debit/Cheque'] = table['Amount'].apply(lambda x: f"${abs(x):.2f}" if x < 0 else "")
